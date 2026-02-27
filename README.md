@@ -18,6 +18,24 @@ A Godot 4 + GUT testing harness that demonstrates deterministic local and CI tes
    - PowerShell: `.\scripts\run_tests.ps1 -GodotExe "C:\Path\To\Godot_v4.x-stable_win64.exe"`
    - bash: `./scripts/run_tests.sh /path/to/Godot_v4.x-stable_linux.x86_64`
 
+## Docs
+
+Local preview:
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve
+```
+
+Or use convenience scripts:
+
+- PowerShell: `.\scripts\docs_serve.ps1`
+- bash: `./scripts/docs_serve.sh`
+
+Published site URL:
+
+- `https://stoplayingames.github.io/UA-GodotTestBench/`
+
 ## CLI Test Commands
 
 PowerShell:

@@ -1,0 +1,16 @@
+site_name: UA-GodotTestBench
+theme:
+  name: material
+plugins:
+  - search
+dev_addr: 127.0.0.1:8010
+nav:
+  - Home: index.md
+  - How-To:
+      - Quickstart: howto/quickstart.md
+      - Run Tests: howto/run-tests.md
+  - Reference:
+      - Project Layout: reference/project-layout.md
+      - CI: reference/ci.md
+      - Dependencies: reference/dependencies.md
+  - Decisions: decisions.md
