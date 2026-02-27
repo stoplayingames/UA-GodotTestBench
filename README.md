@@ -12,21 +12,33 @@ A Godot 4 + GUT testing harness that demonstrates deterministic local and CI tes
 1. Open this folder in Godot 4.
 2. Enable the GUT plugin (once present in `addons/gut`).
 3. Run tests from the GUT panel in the editor.
+4. Run headless tests with a script for CI-parity:
+   - PowerShell: `.\scripts\run_tests.ps1 -GodotExe "C:\Path\To\Godot_v4.x-stable_win64.exe"`
+   - bash: `./scripts/run_tests.sh /path/to/Godot_v4.x-stable_linux.x86_64`
 
 ## CLI Test Commands
 
 PowerShell:
 
 ```powershell
+.\scripts\run_tests.ps1 -GodotExe "C:\Path\To\Godot_v4.x-stable_win64.exe"
+
+# or use env var
 $env:GODOT_EXE="C:\Path\To\Godot_v4.x-stable_win64.exe"
-& $env:GODOT_EXE --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
+.\scripts\run_tests.ps1
 ```
 
 bash:
 
 ```bash
+# one-time executable bit on macOS/Linux
+chmod +x scripts/run_tests.sh
+
+./scripts/run_tests.sh /path/to/Godot_v4.x-stable_linux.x86_64
+
+# or use env var
 export GODOT_EXE="/path/to/Godot_v4.x-stable_linux.x86_64"
-"$GODOT_EXE" --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
+./scripts/run_tests.sh
 ```
 
 ## CI Overview

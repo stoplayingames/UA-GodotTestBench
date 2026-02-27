@@ -37,3 +37,18 @@ func test_safe_divide_returns_zero_when_denominator_is_zero() -> void:
 
 	# Assert
 	assert_eq(result, 0.0, "safe_divide should guard divide-by-zero.")
+
+
+func test_safe_divide_handles_near_zero_denominator_consistently() -> void:
+	# Arrange
+	var numerator := 10.0
+	var denominator := 1e-12
+
+	# Act
+	var result := MathUtilsRef.safe_divide(numerator, denominator)
+
+	# Assert
+	if is_zero_approx(denominator):
+		assert_eq(result, 0.0, "safe_divide should return zero for approx-zero denominator.")
+	else:
+		assert_eq(result, numerator / denominator, "safe_divide should divide normally when denominator is not approx zero.")
