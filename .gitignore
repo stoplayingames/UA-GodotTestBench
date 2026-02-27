@@ -1,0 +1,20 @@
+# Godot 4 project data
+.godot/
+.import/
+
+# Exported builds and templates
+export/
+build/
+dist/
+
+# Godot editor/runtime logs
+*.log
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Python and shell helper artifacts (if used)
+__pycache__/
+*.pyc
