@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Download a pinned Godot binary so local and CI stay deterministic.
+      - name: Download Godot 4.2.2 (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .ci/godot
+          curl -fsSL "https://github.com/godotengine/godot-builds/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip" -o .ci/godot/godot.zip
+          unzip -q .ci/godot/godot.zip -d .ci/godot
+          chmod +x .ci/godot/Godot_v4.2.2-stable_linux.x86_64
+
+      # Windows uses the official zipped executable from the same pinned release.
+      - name: Download Godot 4.2.2 (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force .ci\godot | Out-Null
+          Invoke-WebRequest -Uri "https://github.com/godotengine/godot-builds/releases/download/4.2.2-stable/Godot_v4.2.2-stable_win64.exe.zip" -OutFile ".ci\godot\godot.zip"
+          Expand-Archive -Path ".ci\godot\godot.zip" -DestinationPath ".ci\godot" -Force
+
+      # Reuse the same repo scripts used by developers locally.
+      - name: Run tests (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          chmod +x scripts/run_tests.sh
+          ./scripts/run_tests.sh "$(pwd)/.ci/godot/Godot_v4.2.2-stable_linux.x86_64"
+
+      - name: Run tests (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          .\scripts\run_tests.ps1 -GodotExe ".\.ci\godot\Godot_v4.2.2-stable_win64.exe"
