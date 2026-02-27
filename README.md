@@ -47,6 +47,22 @@ export GODOT_EXE="/path/to/Godot_v4.x-stable_linux.x86_64"
 
 GitHub Actions runs the same test flow in headless mode on Windows and Ubuntu for every `push` and `pull_request`, so local and CI behavior stays aligned.
 
+## Repo Layout
+
+```text
+.
+├─ project.godot
+├─ addons/
+├─ tests/
+├─ scripts/
+├─ .github/workflows/
+├─ docs/
+├─ CONTRIBUTING.md
+├─ LICENSE
+├─ README.md
+└─ .gitignore
+```
+
 ## Work Sample Notes
 
 This repository demonstrates:
@@ -74,19 +90,3 @@ This repository demonstrates:
   - Confirm tests are under `tests/` and use GUT naming (`test_*.gd` with `func test_*()` methods).
 - Wrong working directory:
   - Run commands from repository root so `--path` resolves correctly.
-
-## Repo Layout
-
-```text
-.
-├─ project.godot
-├─ addons/
-├─ tests/
-├─ scripts/
-├─ .github/workflows/
-├─ docs/
-├─ CONTRIBUTING.md
-├─ LICENSE
-├─ README.md
-└─ .gitignore
-```
