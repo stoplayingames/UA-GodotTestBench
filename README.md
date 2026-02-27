@@ -1,6 +1,6 @@
 # UA-GodotTestBench
 
-A portfolio-ready Godot 4 + GUT testing harness that demonstrates deterministic local and CI test execution for GDScript code. This repository is designed to be simple to clone, quick to understand, and easy to extend with additional game logic and automated tests.
+A Godot 4 + GUT testing harness that demonstrates deterministic local and CI test execution for GDScript code. This repository is designed to be simple to clone, quick to understand, and easy to extend with additional game logic and automated tests.
 
 ## Prerequisites
 
