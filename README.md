@@ -105,6 +105,9 @@ This repository demonstrates:
   - Run `chmod +x scripts/run_tests.sh` once on macOS/Linux.
 - GUT script path errors:
   - Confirm this path exists: `addons/gut/gut_cmdln.gd`.
+- `Some GUT class_names have not been imported`:
+  - Headless runs may need a project import (`--headless --path <repo-root> --import`) before tests.
+  - `scripts/run_tests.ps1` and `scripts/run_tests.sh` perform this import step automatically.
 - No tests discovered:
   - Confirm tests are under `tests/` and use GUT naming (`test_*.gd` with `func test_*()` methods).
 - Wrong working directory:

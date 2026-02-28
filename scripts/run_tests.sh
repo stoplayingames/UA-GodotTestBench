@@ -17,14 +17,23 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Pre-import to ensure class_name scripts are registered (CI-safe).
 import_status=0
+set +e
 "$GODOT_EXE" \
   --headless \
   --path "$PROJECT_ROOT" \
-  --import || import_status=$?
+  --import
+import_status=$?
+set -e
 
 if [[ "$import_status" -ne 0 ]]; then
-  echo "Warning: Godot import returned exit code $import_status. Continuing to test run." >&2
+  if [[ "$import_status" -eq 1 ]]; then
+    echo "Warning: Godot import returned exit code $import_status. Continuing to test run." >&2
+  else
+    echo "Godot import failed with exit code $import_status." >&2
+    exit "$import_status"
+  fi
 fi
 
 test_status=0

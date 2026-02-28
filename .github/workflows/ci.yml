@@ -39,18 +39,6 @@ jobs:
           Invoke-WebRequest -Uri "https://github.com/godotengine/godot-builds/releases/download/4.2.2-stable/Godot_v4.2.2-stable_win64.exe.zip" -OutFile ".ci\godot\godot.zip"
           Expand-Archive -Path ".ci\godot\godot.zip" -DestinationPath ".ci\godot" -Force
 
-      - name: Godot headless import (Ubuntu)
-        if: matrix.os == 'ubuntu-latest'
-        shell: bash
-        run: |
-          .ci/godot/Godot_v4.2.2-stable_linux.x86_64 --headless --path "$(pwd)" --import
-
-      - name: Godot headless import (Windows)
-        if: matrix.os == 'windows-latest'
-        shell: pwsh
-        run: |
-          .\.ci\godot\Godot_v4.2.2-stable_win64.exe --headless --path . --import
-
       # Reuse the same repo scripts used by developers locally.
       - name: Run tests (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
