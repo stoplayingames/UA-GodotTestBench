@@ -21,6 +21,22 @@ if (-not $GodotExe) {
 }
 
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+
+# Import project assets/class_names before invoking GUT to avoid
+# missing class_name errors in fresh environments (CI/new clones).
+$importArgs = @(
+	"--headless",
+	"--path", $projectRoot,
+	"--import"
+)
+
+& $GodotExe @importArgs
+$importExitCode = if ($null -eq $LASTEXITCODE) { 1 } else { $LASTEXITCODE }
+if ($importExitCode -ne 0) {
+	Write-Error "Godot import failed with exit code $importExitCode."
+	exit $importExitCode
+}
+
 $args = @(
 	"--headless",
 	"--path", $projectRoot,
@@ -31,7 +47,7 @@ $args = @(
 )
 
 & $GodotExe @args
-$exitCode = $LASTEXITCODE
+$exitCode = if ($null -eq $LASTEXITCODE) { 1 } else { $LASTEXITCODE }
 
 if ($exitCode -ne 0) {
 	Write-Error "GUT tests failed with exit code $exitCode."
