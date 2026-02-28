@@ -1,6 +1,7 @@
 # UA-GodotTestBench
 
 [![CI](https://github.com/stoplayingames/UA-GodotTestBench/actions/workflows/ci.yml/badge.svg)](https://github.com/stoplayingames/UA-GodotTestBench/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://stoplayingames.github.io/UA-GodotTestBench/)
 
 A Godot 4 + GUT testing harness that demonstrates deterministic local and CI test execution for GDScript code. This repository is designed to be simple to clone, quick to understand, and easy to extend with additional game logic and automated tests.
 
