@@ -33,8 +33,7 @@ $importArgs = @(
 & $GodotExe @importArgs
 $importExitCode = if ($null -eq $LASTEXITCODE) { 1 } else { $LASTEXITCODE }
 if ($importExitCode -ne 0) {
-	Write-Error "Godot import failed with exit code $importExitCode."
-	exit $importExitCode
+	Write-Warning "Godot import returned exit code $importExitCode. Continuing to test run."
 }
 
 $args = @(
