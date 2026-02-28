@@ -18,3 +18,9 @@ Thumbs.db
 # Python and shell helper artifacts (if used)
 __pycache__/
 *.pyc
+
+# Local Python tooling accidentally created in repo root (do not commit)
+Lib/
+pyvenv.cfg
+
+.venv/

@@ -1,9 +1,9 @@
 $ErrorActionPreference = "Stop"
 
+$env:PYTHONUTF8 = "1"
+
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $projectRoot
-
-$env:PYTHONUTF8 = "1"
 
 pip install -r requirements-docs.txt
 if ($LASTEXITCODE -ne 0) {
