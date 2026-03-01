@@ -1,5 +1,6 @@
 param(
-	[string]$GodotExe = ""
+	[string]$GodotExe = "",
+	[switch]$SkipImport
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,19 +23,21 @@ if (-not $GodotExe) {
 
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 
-# Import project assets/class_names before invoking GUT to avoid
-# missing class_name errors in fresh environments (CI/new clones).
-$importArgs = @(
-	"--headless",
-	"--path", $projectRoot,
-	"--import"
-)
+if (-not $SkipImport) {
+	# Import project assets/class_names before invoking GUT to avoid
+	# missing class_name errors in fresh environments (CI/new clones).
+	$importArgs = @(
+		"--headless",
+		"--path", $projectRoot,
+		"--import"
+	)
 
-& $GodotExe @importArgs
-$importExitCode = if ($null -eq $LASTEXITCODE) { 1 } else { $LASTEXITCODE }
-if ($importExitCode -ne 0) {
-	Write-Error "Godot import failed with exit code $importExitCode."
-	exit $importExitCode
+	& $GodotExe @importArgs
+	$importExitCode = if ($null -eq $LASTEXITCODE) { 1 } else { $LASTEXITCODE }
+	if ($importExitCode -ne 0) {
+		Write-Error "Godot import failed with exit code $importExitCode."
+		exit $importExitCode
+	}
 }
 
 $args = @(
